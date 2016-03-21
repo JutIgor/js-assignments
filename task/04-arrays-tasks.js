@@ -305,7 +305,7 @@ function get3TopItems(arr) {
  *   [ null, 1, 'elephant' ] => 1
  */
 function getPositivesCount(arr) {
-    throw new Error('Not implemented');
+    return arr.reduce((p, c) => c > 0 ? p += 1 : p, 0);
 }
 
 /** 
@@ -322,7 +322,8 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-    throw new Error('Not implemented');
+    var nums = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+    return arr.sort((a, b) => nums.indexOf(a) - nums.indexOf(b));
 }
 
 /** 
@@ -416,7 +417,10 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 function sortCitiesArray(arr) {
-    throw new Error('Not implemented');
+    return arr.sort((a, b) => {
+        return a.country.localeCompare(b.country)
+            || a.city.localeCompare(b.city);
+    });
 }
 
 /**
@@ -520,7 +524,7 @@ function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 function selectMany(arr, childrenSelector) {
-    throw new Error('Not implemented');
+    return arr.reduce((p, c) => p.concat(childrenSelector(c)), []);
 }
 
 
