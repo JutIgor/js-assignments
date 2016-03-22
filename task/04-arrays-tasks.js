@@ -269,7 +269,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-    return Array.from(arr, (v, k) => new Array(k + 1).fill(v))
+    return Array.from(arr, (v, k) => Array.from({ length: k + 1 }, x => v))
         .reduce((p, c) => p.concat(c), []);
 }
 
@@ -305,7 +305,7 @@ function get3TopItems(arr) {
  *   [ null, 1, 'elephant' ] => 1
  */
 function getPositivesCount(arr) {
-    return arr.reduce((p, c) => c > 0 ? p += 1 : p, 0);
+    return arr.reduce((p, c) => c > 0 ? ++p : p, 0);
 }
 
 /** 
@@ -373,7 +373,7 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurences(arr, item) {
-    return arr.filter(e => e === item).length;
+    return arr.reduce((p, c) => c === item ? ++p : p, 0)
 }
 
 /**
@@ -442,7 +442,7 @@ function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]   
  */
 function getIdentityMatrix(n) {
-    throw new Error('Not implemented');
+    return Array.from({ length: n }, (p, v) => Array.from({ length: n }, (e, i) => i === v ? 1 : 0));
 }
 
 /**
@@ -508,7 +508,9 @@ function distinct(arr) {
  *   }
  */
 function group(array, keySelector, valueSelector) {
-    throw new Error('Not implemented');
+    var res = new Map();
+    array.map(e => res.get(keySelector(e)) ? res.get(keySelector(e)).push(valueSelector(e)) : res.set(keySelector(e), [valueSelector(e)]));
+    return res;
 }
 
 
@@ -541,7 +543,7 @@ function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 function getElementByIndexes(arr, indexes) {
-    throw new Error('Not implemented');
+    return indexes.reduce((p, c) => p = p[c], arr);
 }
 
 
@@ -564,7 +566,10 @@ function getElementByIndexes(arr, indexes) {
  * 
  */
 function swapHeadAndTail(arr) {
-    throw new Error('Not implemented');
+    var len = Math.floor(arr.length / 2);
+    var head = arr.splice(0, len);
+    var tail = arr.splice(arr.length - len, len);
+    return tail.concat(arr).concat(head);
 }
 
 
